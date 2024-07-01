@@ -2,6 +2,9 @@ package com.yzxjsw.infrastructure.persistent.po;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * StrategyAward 抽奖策略详细配置
  *
@@ -12,13 +15,13 @@ import lombok.Data;
 public class StrategyAward {
 
     /** 自增id */
-    private String id;
+    private Long id;
 
     /** 抽奖策略Id */
-    private String strategyId;
+    private Long strategyId;
 
     /** '抽奖奖品id */
-    private String awardId;
+    private Integer awardId;
 
     /** 抽奖奖品标题 */
     private String awardTitle;
@@ -27,13 +30,13 @@ public class StrategyAward {
     private String awardSubtitle;
 
     /** 奖品总库存 */
-    private String awardCount;
+    private Integer awardCount;
 
     /** 奖品剩余库存 */
-    private String awardCountSurplus;
+    private Integer awardCountSurplus;
 
     /** 奖品中奖概率 */
-    private String awardRate;
+    private BigDecimal awardRate;
 
     /** 排序 */
     private Integer sort;
@@ -42,8 +45,8 @@ public class StrategyAward {
     private String ruleModels;
 
     /** 创建时间 */
-    private String createTime;
+    private Date createTime;
 
     /** 更新时间 */
-    private String updateTime;
+    private Date updateTime;
 }
