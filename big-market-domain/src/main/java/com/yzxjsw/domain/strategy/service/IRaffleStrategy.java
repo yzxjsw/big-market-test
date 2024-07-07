@@ -11,6 +11,5 @@ import com.yzxjsw.domain.strategy.model.RaffleFactorEntity;
  **/
 public interface IRaffleStrategy {
 
-
     RaffleAwardEntity performRaffle(RaffleFactorEntity raffleFactorEntity);
 }

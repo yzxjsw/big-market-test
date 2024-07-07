@@ -35,12 +35,13 @@ public class RuleBlackListLogicFilter implements ILogicFilter<RuleActionEntity.R
                 ruleMatterEntity.getUserId(), ruleMatterEntity.getStrategyId(), ruleMatterEntity.getRuleModel());
         String userId = ruleMatterEntity.getUserId();
 
-        // 查询规则值配置
-        String ruleValue = strategyRepository.queryStrategyRuleValue(ruleMatterEntity.getStrategyId(), ruleMatterEntity.getAwardId(), ruleMatterEntity.getRuleModel());
+        // 查询抽奖策略配置的黑名单规则值 rule_value
+        String ruleValue = strategyRepository.queryStrategyRuleValue(ruleMatterEntity.getStrategyId(), ruleMatterEntity.getAwardId(),
+                ruleMatterEntity.getRuleModel());
         String[] splitRuleValue = ruleValue.split(Constants.COLON);
         Integer awardId = Integer.parseInt(splitRuleValue[0]);
 
-        // 过滤其他规则
+        // 判断物料中的 userId 是否配置在黑名单中，在：接管 TAKE_OVER
         String[] userBlackIds = splitRuleValue[1].split(Constants.SPLIT);
         for (String userBlackId : userBlackIds) {
             if (userId.equals(userBlackId)) {

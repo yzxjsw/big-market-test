@@ -21,6 +21,7 @@ public class RuleActionEntity<T extends RuleActionEntity.RaffleEntity>{
     private String ruleModel;
     private T data;
 
+    // 基类，为了限定传入具体的泛型类型
     static public class RaffleEntity {
     }
 

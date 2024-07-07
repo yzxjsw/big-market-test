@@ -30,7 +30,7 @@ public class StrategyArmoryDispatch implements IStrategyArmory, IStrategyDispatc
 
     @Override
     public boolean assembleLotteryStrategy(Long strategyId) {
-        // 1. 查询策略配置
+        // 1. 查询抽奖策略奖品配置
         List<StrategyAwardEntity> strategyAwardEntities = strategyRepository.queryStrategyAwardList(strategyId);
         assembleLotteryStrategy(String.valueOf(strategyId), strategyAwardEntities);
 
@@ -74,7 +74,7 @@ public class StrategyArmoryDispatch implements IStrategyArmory, IStrategyDispatc
         // 3. 用 1 / 0.0001 获取概率范围，百分位，千分位，万分位10, 确定有多少个框
         BigDecimal rateRange = totalAwardRate.divide(minAwardRate, 0, RoundingMode.CEILING);
 
-        // 4.
+        // 4. 填充概率范围【存储awardId】
         ArrayList<Integer> strategyAwardSearchRateTables = new ArrayList<>(rateRange.intValue());
         for (StrategyAwardEntity strategyAwardEntity : strategyAwardEntities) {
             Integer awardId = strategyAwardEntity.getAwardId();
