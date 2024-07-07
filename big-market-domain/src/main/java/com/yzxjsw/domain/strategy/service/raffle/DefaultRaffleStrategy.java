@@ -75,7 +75,9 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy{
             ruleActionEntity = logicFilter.filter(ruleMatterEntity);
             // 非放行结果则顺序过滤
             log.info("抽奖前规则过滤 userId: {} ruleModel: {} code: {} info: {}", raffleFactorEntity.getUserId(), ruleModel, ruleActionEntity.getCode(), ruleActionEntity.getInfo());
-            if (!RuleLogicCheckTypeVO.ALLOW.getCode().equals(ruleActionEntity.getCode())) return ruleActionEntity;
+            if (!RuleLogicCheckTypeVO.ALLOW.getCode().equals(ruleActionEntity.getCode())) {
+                return ruleActionEntity;
+            }
         }
 
         return ruleActionEntity;

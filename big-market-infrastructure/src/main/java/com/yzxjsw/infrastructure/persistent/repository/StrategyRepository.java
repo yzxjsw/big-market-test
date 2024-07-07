@@ -46,7 +46,7 @@ public class StrategyRepository implements IStrategyRepository {
     @Override
     public List<StrategyAwardEntity> queryStrategyAwardList(Long strategyId) {
         String cacheKey = Constants.RedisKey.STRATEGY_AWARD_KEY + strategyId;
-        // 查询缓存，
+        // 查询Redis缓存，
         List<StrategyAwardEntity> strategyAwardEntities = redisService.getValue(cacheKey);
         if (null != strategyAwardEntities && !strategyAwardEntities.isEmpty()) {
             return strategyAwardEntities;

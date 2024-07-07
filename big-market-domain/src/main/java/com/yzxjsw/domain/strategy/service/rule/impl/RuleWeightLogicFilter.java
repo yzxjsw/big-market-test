@@ -29,6 +29,7 @@ public class RuleWeightLogicFilter implements ILogicFilter<RuleActionEntity.Raff
     @Resource
     private IStrategyRepository strategyRepository;
 
+    // 模拟用户的积分
     private Long userScore = 4500L;
 
     /**
@@ -46,6 +47,8 @@ public class RuleWeightLogicFilter implements ILogicFilter<RuleActionEntity.Raff
 
         String userId = ruleMatterEntity.getUserId();
         Long strategyId = ruleMatterEntity.getStrategyId();
+
+        // 查询抽奖策略配置的权重规则对应的rule_value
         String ruleValue = strategyRepository.queryStrategyRuleValue(
                 ruleMatterEntity.getStrategyId(), ruleMatterEntity.getAwardId(), ruleMatterEntity.getRuleModel());
 

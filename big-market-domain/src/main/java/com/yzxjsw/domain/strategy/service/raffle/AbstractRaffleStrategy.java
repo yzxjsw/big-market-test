@@ -42,7 +42,7 @@ public abstract class AbstractRaffleStrategy implements IRaffleStrategy {
             throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), ResponseCode.ILLEGAL_PARAMETER.getInfo());
         }
 
-        // 2. 策略查询
+        // 2. 抽奖策略查询
         StrategyEntity strategy = repository.queryStrategyEntityByStrategyId(strategyId);
 
         // 3. 抽奖前 - 规则过滤

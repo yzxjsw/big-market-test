@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yzxjsw.domain.strategy.model.RaffleAwardEntity;
 import com.yzxjsw.domain.strategy.model.RaffleFactorEntity;
 import com.yzxjsw.domain.strategy.service.IRaffleStrategy;
+import com.yzxjsw.domain.strategy.service.armory.IStrategyArmory;
 import com.yzxjsw.domain.strategy.service.rule.impl.RuleWeightLogicFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -27,6 +28,9 @@ import javax.annotation.Resource;
 public class RaffleStrategyTest {
 
     @Resource
+    private IStrategyArmory strategyArmory;
+
+    @Resource
     private IRaffleStrategy raffleStrategy;
 
     @Resource
@@ -34,14 +38,20 @@ public class RaffleStrategyTest {
 
     @Before
     public void setUp() {
-        ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 40500L);
+        ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 6000L);
     }
 
     @Test
+    public void test_strategyArmory_weight() {
+        // 装配 100004
+        boolean success = strategyArmory.assembleLotteryStrategy(100004L);
+        log.info("装配测试结果：{}", success);
+    }
+    @Test
     public void test_performRaffle() {
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
-                .userId("xiaofuge")
-                .strategyId(10001L)
+                .userId("user4")
+                .strategyId(100004L)
                 .build();
 
         RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
@@ -53,8 +63,8 @@ public class RaffleStrategyTest {
     @Test
     public void test_performRaffle_blacklist() {
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
-                .userId("user003")  // 黑名单用户 user001,user002,user003
-                .strategyId(10001L)
+                .userId("user1")  // 黑名单用户 user1,user2,user3
+                .strategyId(100004L)
                 .build();
 
         RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
