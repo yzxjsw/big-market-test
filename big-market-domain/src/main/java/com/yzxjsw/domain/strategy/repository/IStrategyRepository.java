@@ -3,6 +3,7 @@ package com.yzxjsw.domain.strategy.repository;
 import com.yzxjsw.domain.strategy.model.StrategyAwardEntity;
 import com.yzxjsw.domain.strategy.model.StrategyEntity;
 import com.yzxjsw.domain.strategy.model.StrategyRuleEntity;
+import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -42,4 +43,7 @@ public interface IStrategyRepository {
     StrategyRuleEntity queryStrategyRule(Long strategyId, String ruleModel);
 
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
+
+    StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);
+
 }

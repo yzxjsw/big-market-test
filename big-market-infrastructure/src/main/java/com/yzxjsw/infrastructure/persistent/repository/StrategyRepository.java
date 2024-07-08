@@ -3,6 +3,7 @@ package com.yzxjsw.infrastructure.persistent.repository;
 import com.yzxjsw.domain.strategy.model.StrategyAwardEntity;
 import com.yzxjsw.domain.strategy.model.StrategyEntity;
 import com.yzxjsw.domain.strategy.model.StrategyRuleEntity;
+import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.infrastructure.persistent.dao.IStrategyAwardDao;
 import com.yzxjsw.infrastructure.persistent.dao.IStrategyDao;
@@ -112,7 +113,7 @@ public class StrategyRepository implements IStrategyRepository {
                 .ruleModels(strategy.getRuleModels())
                 .build();
         redisService.setValue(cacheKey, strategyEntity);
-        return null;
+        return strategyEntity;
     }
 
     @Override
@@ -138,5 +139,16 @@ public class StrategyRepository implements IStrategyRepository {
         strategyRule.setAwardId(awardId);
         strategyRule.setRuleModel(ruleModel);
         return strategyRuleDao.queryStrategyRuleValue(strategyRule);
+    }
+
+    @Override
+    public StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId) {
+        StrategyAward strategyAward = new StrategyAward();
+        strategyAward.setStrategyId(strategyId);
+        strategyAward.setAwardId(awardId);
+        String ruleModels = strategyAwardDao.queryStrategyAwardRuleModels(strategyAward);
+        return StrategyAwardRuleModelVO.builder()
+                .ruleModels(ruleModels)
+                .build();
     }
 }

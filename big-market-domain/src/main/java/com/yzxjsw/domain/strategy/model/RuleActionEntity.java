@@ -31,7 +31,7 @@ public class RuleActionEntity<T extends RuleActionEntity.RaffleEntity>{
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    static public class RaffleBeforeEntity extends RaffleEntity {
+    public static class RaffleBeforeEntity extends RaffleEntity {
         /**
          * 策略ID
          */
@@ -50,12 +50,12 @@ public class RuleActionEntity<T extends RuleActionEntity.RaffleEntity>{
 
     /** 抽奖中 */
 
-    static public class RaffleCenterEntity extends RaffleEntity {
+    public static class RaffleCenterEntity extends RaffleEntity {
 
     }
 
     /** 抽奖后 */
-    static public class RaffleAfterEntity extends RaffleEntity {
+    public static class RaffleAfterEntity extends RaffleEntity {
 
     }
 }
