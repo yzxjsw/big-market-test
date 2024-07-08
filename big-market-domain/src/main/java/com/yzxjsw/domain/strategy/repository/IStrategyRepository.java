@@ -20,8 +20,8 @@ public interface IStrategyRepository {
 
     /**
      * 查询策略配置
-     * @param strategyId
-     * @return
+     * @param strategyId 策略ID
+     * @return 抽奖策略配置的奖品实体集合
      */
     List<StrategyAwardEntity> queryStrategyAwardList(Long strategyId);
 
@@ -43,6 +43,7 @@ public interface IStrategyRepository {
     StrategyRuleEntity queryStrategyRule(Long strategyId, String ruleModel);
 
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
+    String queryStrategyRuleValue(Long strategyId, String ruleModel);
 
     StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);
 

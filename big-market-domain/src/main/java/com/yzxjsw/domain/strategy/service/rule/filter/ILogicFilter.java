@@ -1,4 +1,4 @@
-package com.yzxjsw.domain.strategy.service.rule;
+package com.yzxjsw.domain.strategy.service.rule.filter;
 
 import com.yzxjsw.domain.strategy.model.RuleActionEntity;
 import com.yzxjsw.domain.strategy.model.RuleMatterEntity;

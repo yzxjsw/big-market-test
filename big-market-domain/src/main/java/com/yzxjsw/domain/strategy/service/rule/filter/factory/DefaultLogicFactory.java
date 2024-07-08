@@ -1,8 +1,8 @@
-package com.yzxjsw.domain.strategy.service.rule.factory;
+package com.yzxjsw.domain.strategy.service.rule.filter.factory;
 
 import com.yzxjsw.domain.strategy.model.RuleActionEntity;
 import com.yzxjsw.domain.strategy.service.annotation.LogicStrategy;
-import com.yzxjsw.domain.strategy.service.rule.ILogicFilter;
+import com.yzxjsw.domain.strategy.service.rule.filter.ILogicFilter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

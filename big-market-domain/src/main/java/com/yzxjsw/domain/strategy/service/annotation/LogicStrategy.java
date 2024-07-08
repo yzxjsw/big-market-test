@@ -1,6 +1,6 @@
 package com.yzxjsw.domain.strategy.service.annotation;
 
-import com.yzxjsw.domain.strategy.service.rule.factory.DefaultLogicFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultLogicFactory;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -5,9 +5,11 @@ import com.yzxjsw.domain.strategy.model.RuleActionEntity;
 import com.yzxjsw.domain.strategy.model.RuleMatterEntity;
 import com.yzxjsw.domain.strategy.model.vo.RuleLogicCheckTypeVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
+import com.yzxjsw.domain.strategy.service.AbstractRaffleStrategy;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyDispatch;
-import com.yzxjsw.domain.strategy.service.rule.ILogicFilter;
-import com.yzxjsw.domain.strategy.service.rule.factory.DefaultLogicFactory;
+import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.ILogicFilter;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultLogicFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -27,17 +29,25 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class DefaultRaffleStrategy extends AbstractRaffleStrategy{
+public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
 
     @Resource
     private DefaultLogicFactory logicFactory;
 
-    public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch) {
-        super(repository, strategyDispatch);
+    public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch, DefaultChainFactory defaultChainFactory, DefaultLogicFactory logicFactory) {
+        super(repository, strategyDispatch, defaultChainFactory);
     }
 
     @Override
     protected RuleActionEntity<RuleActionEntity.RaffleBeforeEntity> doCheckRaffleBeforeLogic(RaffleFactorEntity raffleFactorEntity, String[] logics) {
+
+        if (logics == null || 0 == logics.length) {
+            return RuleActionEntity.<RuleActionEntity.RaffleBeforeEntity>builder()
+                    .code(RuleLogicCheckTypeVO.ALLOW.getCode())
+                    .info(RuleLogicCheckTypeVO.ALLOW.getInfo())
+                    .build();
+        }
+
         Map<String, ILogicFilter<RuleActionEntity.RaffleBeforeEntity>> logicFilterGroup = logicFactory.openLogicFilter();
 
         // 黑名单规则优先过滤
