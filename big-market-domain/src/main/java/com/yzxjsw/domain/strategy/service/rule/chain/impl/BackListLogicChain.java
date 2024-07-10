@@ -2,6 +2,7 @@ package com.yzxjsw.domain.strategy.service.rule.chain.impl;
 
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.domain.strategy.service.rule.chain.AbstractLogicChain;
+import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
 import com.yzxjsw.types.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class BackListLogicChain extends AbstractLogicChain {
     private IStrategyRepository repository;
 
     @Override
-    public Integer logic(String userId, Long strategyId) {
+    public DefaultChainFactory.StrategyAwardVO logic(String userId, Long strategyId) {
         log.info("抽奖前规则过滤-【黑名单】-begin: userId:{}, strategyId:{}",userId, strategyId);
         String ruleValue = repository.queryStrategyRuleValue(strategyId, ruleModel());
 
@@ -36,7 +37,10 @@ public class BackListLogicChain extends AbstractLogicChain {
             if (userId.equals(userBlackId)) {
                 log.info("用户为黑名单中的用户。黑名单: {}, userId: {}",
                         userBlackIds, userBlackId);
-                return awardId;
+                return DefaultChainFactory.StrategyAwardVO.builder()
+                        .awardId(awardId)
+                        .logicModel(ruleModel())
+                        .build();
             }
         }
 
@@ -48,6 +52,6 @@ public class BackListLogicChain extends AbstractLogicChain {
 
     @Override
     protected String ruleModel() {
-        return "rule_blacklist";
+        return DefaultChainFactory.LogicModel.RULE_BLACKLIST.getCode();
     }
 }

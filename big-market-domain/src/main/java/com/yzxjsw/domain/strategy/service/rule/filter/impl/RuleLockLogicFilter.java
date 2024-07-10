@@ -2,7 +2,7 @@ package com.yzxjsw.domain.strategy.service.rule.filter.impl;
 
 import com.yzxjsw.domain.strategy.model.RuleActionEntity;
 import com.yzxjsw.domain.strategy.model.RuleMatterEntity;
-import com.yzxjsw.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import com.yzxjsw.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.domain.strategy.service.annotation.LogicStrategy;
 import com.yzxjsw.domain.strategy.service.rule.filter.ILogicFilter;

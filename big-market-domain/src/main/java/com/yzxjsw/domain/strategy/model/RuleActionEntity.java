@@ -1,6 +1,6 @@
 package com.yzxjsw.domain.strategy.model;
 
-import com.yzxjsw.domain.strategy.model.vo.RuleLogicCheckTypeVO;
+import com.yzxjsw.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import lombok.*;
 
 /**

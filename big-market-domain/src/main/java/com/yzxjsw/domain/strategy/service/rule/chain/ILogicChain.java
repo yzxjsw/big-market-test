@@ -1,5 +1,7 @@
 package com.yzxjsw.domain.strategy.service.rule.chain;
 
+import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
+
 /**
  * ILogicChain 责任链接口
  *
@@ -9,10 +11,9 @@ package com.yzxjsw.domain.strategy.service.rule.chain;
 public interface ILogicChain extends ILogicChainArmory{
 
     /**
-     *
-     * @param userId 用户ID
+     * @param userId     用户ID
      * @param strategyId 策略ID
      * @return 奖品ID
      */
-    Integer logic(String userId, Long strategyId);
+    DefaultChainFactory.StrategyAwardVO logic(String userId, Long strategyId);
 }
