@@ -11,7 +11,7 @@ public interface IStrategyArmory {
 
     /**
      * 装配抽奖策略接口
-     * @param strategyId
+     * @param strategyId 策略ID
      */
     boolean assembleLotteryStrategy(Long strategyId);
 

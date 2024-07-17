@@ -5,6 +5,7 @@ import com.yzxjsw.domain.strategy.model.StrategyEntity;
 import com.yzxjsw.domain.strategy.model.StrategyRuleEntity;
 import com.yzxjsw.domain.strategy.model.valobj.RuleTreeVO;
 import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
+import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardStockKeyVO;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -28,9 +29,10 @@ public interface IStrategyRepository {
 
     /**
      * 将策略的概率映射表存入Redis
-     * @param key
-     * @param rateRange
-     * @param shuffleStrategyAwardSearchRateTables
+     * @param key 策略ID 全量 或者带权重
+     * @param rateRange 随机数的范围
+     * @param shuffleStrategyAwardSearchRateTables 打乱后的存储概率表，key value: awardId
+     *
      */
     void storeStrategyAwardSearchRateTables(String key, int rateRange, HashMap<Integer, Integer> shuffleStrategyAwardSearchRateTables);
 
@@ -49,4 +51,24 @@ public interface IStrategyRepository {
     StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);
 
     RuleTreeVO queryRuleTreeVOByTreeId(String treeId);
+
+    /**
+     * 缓存奖品库存
+     * @param cacheKey key
+     * @param awardCount 库存值
+     */
+    void cacheStrategyAwardCount(String cacheKey, Integer awardCount);
+
+    /**
+     * 扣减库存 decr 方式。
+     * @param key 缓存key
+     * @return 扣减结果
+     */
+    Boolean subtractionAwardStock(String key);
+    void awardStockConsumeSendQueue(StrategyAwardStockKeyVO strategyAwardStockKeyVO);
+
+
+    StrategyAwardStockKeyVO takeQueueValue() throws InterruptedException;
+
+    void updateStrategyAwardStock(Long strategyId, Integer awardId);
 }

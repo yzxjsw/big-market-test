@@ -94,4 +94,22 @@ public class RaffleStrategyChainTest {
         log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
         log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
     }
+
+    @Test
+    public void test_performRaffle_tree() {
+        // 100005 测试抽奖中规则 【rule_lock】
+        boolean success = strategyArmory.assembleLotteryStrategy(100006L);
+        log.info("装配测试结果：{}", success);
+        //ReflectionTestUtils.setField(ruleWeightLogicChain, "userScore", 5000L);
+        //ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 0L);
+        RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
+                .userId("yzx")  // 黑名单用户 user1,user2,user3
+                .strategyId(100006L)
+                .build();
+
+        RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
+
+        log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
+        log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
+    }
 }
