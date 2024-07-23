@@ -18,22 +18,21 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class StrategyAwardEntity {
-    /** 抽奖策略Id */
+    /** 抽奖策略ID */
     private Long strategyId;
-
-    /** 抽奖奖品id */
+    /** 抽奖奖品ID - 内部流转使用 */
     private Integer awardId;
-
-    /** 奖品总库存 */
+    /** 抽奖奖品标题 */
+    private String awardTitle;
+    /** 抽奖奖品副标题 */
+    private String awardSubtitle;
+    /** 奖品库存总量 */
     private Integer awardCount;
-
-    /** 奖品剩余库存 */
+    /** 奖品库存剩余 */
     private Integer awardCountSurplus;
-
     /** 奖品中奖概率 */
     private BigDecimal awardRate;
-
-
-
+    /** 排序 */
+    private Integer sort;
 
 }

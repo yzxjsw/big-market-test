@@ -1,4 +1,4 @@
-package com.yzxjsw.test.domain;
+package com.yzxjsw.test.domain.strategy;
 
 import com.alibaba.fastjson.JSON;
 import com.yzxjsw.domain.strategy.model.RaffleAwardEntity;

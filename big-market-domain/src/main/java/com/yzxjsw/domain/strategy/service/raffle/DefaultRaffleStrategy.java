@@ -1,10 +1,13 @@
 package com.yzxjsw.domain.strategy.service.raffle;
 
+import com.yzxjsw.domain.strategy.model.StrategyAwardEntity;
 import com.yzxjsw.domain.strategy.model.valobj.RuleTreeVO;
 import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardStockKeyVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.domain.strategy.service.AbstractRaffleStrategy;
+import com.yzxjsw.domain.strategy.service.IRaffleAward;
+import com.yzxjsw.domain.strategy.service.IRaffleStock;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyDispatch;
 import com.yzxjsw.domain.strategy.service.rule.chain.ILogicChain;
 import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
@@ -12,6 +15,8 @@ import com.yzxjsw.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
 import com.yzxjsw.domain.strategy.service.rule.tree.factory.engine.IDecisionTreeEngine;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * DefaultRaffleStrategy 抽奖实现
@@ -22,7 +27,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
+public class DefaultRaffleStrategy extends AbstractRaffleStrategy implements IRaffleAward, IRaffleStock {
 
     public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch, DefaultChainFactory defaultChainFactory, DefaultTreeFactory defaultTreeFactory) {
         super(repository, strategyDispatch, defaultChainFactory, defaultTreeFactory);
@@ -56,5 +61,10 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
     @Override
     public void updateStrategyAwardStock(Long strategyId, Integer awardId) {
         repository.updateStrategyAwardStock(strategyId, awardId);
+    }
+
+    @Override
+    public List<StrategyAwardEntity> queryRaffleStrategyAwardList(Long strategyId) {
+        return repository.queryStrategyAwardList(strategyId);
     }
 }

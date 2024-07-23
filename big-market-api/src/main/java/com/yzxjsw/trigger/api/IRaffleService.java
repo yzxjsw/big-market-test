@@ -30,7 +30,7 @@ public interface IRaffleService {
     Response<List<RaffleAwardListResponseDTO>> queryRaffleAwardList(RaffleAwardListRequestDTO requestDTO);
 
     /**
-     * 随机抽奖接口
+     * 执行随机抽奖接口
      * @param requestDTO 请求参数
      * @return 抽奖结果
      */
