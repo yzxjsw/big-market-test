@@ -43,7 +43,13 @@ public class StrategyArmoryTest {
 
     @Test
     public void test_getAssembleRandomVal() {
-        log.info("【全量抽奖】测试结果：{}", strategyDispatch.getRandomAwardId(100007L));
+        log.info("【全量抽奖】测试结果：{}", strategyDispatch.getRandomAwardId(100008L));
+        log.info("【全量抽奖】测试结果：{}", strategyDispatch.getRandomAwardId(100008L));
+        log.info("【全量抽奖】测试结果：{}", strategyDispatch.getRandomAwardId(100008L));
+        log.info("【全量抽奖】测试结果：{}", strategyDispatch.getRandomAwardId(100008L));
+        log.info("【权重抽奖】测试结果：{} ", strategyDispatch.getRandomAwardId(100008L, "6000:102,103,104"));
+        log.info("【权重抽奖】测试结果：{} ", strategyDispatch.getRandomAwardId(100008L, "6000:102,103,104"));
+        log.info("【权重抽奖】测试结果：{} ", strategyDispatch.getRandomAwardId(100008L, "6000:102,103,104"));
         log.info("【权重抽奖】测试结果：{} ", strategyDispatch.getRandomAwardId(100008L, "6000:102,103,104"));
     }
 }

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @version 2024/07/09 15:00
  **/
 @Slf4j
-@Component("rule_lock")
+@Component("rule_lock_1")
 public class RuleLockLogicTreeNode implements ILogicTreeNode {
 
     // 用户抽奖次数，后续完成这部分流程开发的时候，从数据库/Redis中读取

@@ -235,15 +235,6 @@ public class StrategyRepository implements IStrategyRepository {
 
     @Override
     public void cacheStrategyAwardCount(String cacheKey, Integer awardCount) {
-        //Long cacheAwardCount = redisService.getAtomicLong(cacheKey);
-        //// 避免覆盖
-        //if (null != cacheAwardCount) {
-        //    return;
-        //}
-        //if (redisService.isExists(cacheKey)) {
-        //    return;
-        //}
-        //redisService.setAtomicLong(cacheKey, awardCount);
         if (redisService.isExists(cacheKey)) {
             return;
         }
@@ -272,9 +263,6 @@ public class StrategyRepository implements IStrategyRepository {
         RBlockingQueue<StrategyAwardStockKeyVO> blockingQueue = redisService.getBlockingQueue(cacheKey);
         // 获取和阻塞队列关联的延迟队列
         RDelayedQueue<StrategyAwardStockKeyVO> delayedQueue = redisService.getDelayedQueue(blockingQueue);
-        // 这段代码使用 redisService 来获取 Redis 阻塞队列和延迟队列，
-        // 然后将一个 StrategyAwardStockKeyVO 对象添加到延迟队列中，设置延迟时间为 3 秒。
-        // 在这 3 秒内，队列中的其他消费者无法访问到这个元素。3 秒后，元素会变得可供消费。
         delayedQueue.offer(strategyAwardStockKeyVO, 3, TimeUnit.SECONDS);
     }
 

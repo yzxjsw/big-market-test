@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @version 2024/07/09 15:04
  **/
 @Slf4j
-@Component("rule_stock")
+@Component("rule_stock_1")
 public class RuleStockLogicTreeNode implements ILogicTreeNode {
 
     @Resource

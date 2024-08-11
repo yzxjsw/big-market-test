@@ -8,6 +8,7 @@ import com.yzxjsw.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
  * @author yezhenxiong
  * @version 2024/07/09 14:41
  **/
+
 public interface ILogicTreeNode {
 
     DefaultTreeFactory.TreeActionEntity logic(String userId, Long strategyId, Integer awardId, String ruleValue);

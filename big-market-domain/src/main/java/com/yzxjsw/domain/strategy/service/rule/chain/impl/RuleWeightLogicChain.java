@@ -29,7 +29,7 @@ public class RuleWeightLogicChain extends AbstractLogicChain {
 
 
     // 根据用户ID查询用户抽奖消耗的积分值，本章节我们先写死为固定的值。后续需要从数据库中查询。
-    public Long userScore = 0L;
+    public Long userScore = 1000L;
 
     @Override
     public DefaultChainFactory.StrategyAwardVO logic(String userId, Long strategyId) {
@@ -37,10 +37,11 @@ public class RuleWeightLogicChain extends AbstractLogicChain {
 
         String ruleValue = repository.queryStrategyRuleValue(strategyId, ruleModel());
 
-        // 1. 根据用户ID查询用户抽奖消耗的积分值，本章节我们先写死为固定的值。后续需要从数据库中查询。
+        // 1. 解析数据库中配置的规则值：例如：6000:102,103,104
         Map<Long, String> analyticalValueGroup = getAnalyticalValue(ruleValue);
         if (null == analyticalValueGroup || analyticalValueGroup.isEmpty()) {
-            return null; // 不确定是否存在bug
+            log.warn("抽奖责任链-权重告警【策略配置权重，但ruleValue未配置相应值】 userId: {} strategyId: {} ruleModel: {}", userId, strategyId, ruleModel());
+            return next().logic(userId, strategyId); // 交给下一个处理器进行处理
         }
         // 2. 转换Keys值，并默认排序
         List<Long> analyticalSortedKeys = new ArrayList<>(analyticalValueGroup.keySet());
@@ -58,12 +59,13 @@ public class RuleWeightLogicChain extends AbstractLogicChain {
             Integer awardId = strategyDispatch.getRandomAwardId(strategyId, analyticalValueGroup.get(nextValue));
             log.info("抽奖责任链-权重接管 userId: {} strategyId: {} ruleModel: {} awardId: {}", userId, strategyId, ruleModel(), awardId);
             log.info("抽奖前规则过滤-【权重规则】-end: 接管");
+            log.info("【抽奖权重配置信息】: {}", ruleValue);
             return DefaultChainFactory.StrategyAwardVO.builder()
                     .awardId(awardId)
                     .logicModel(ruleModel())
                     .build();
         }
-
+        // 用户的积分未达到配置的任意一个积分范围
         log.info("抽奖前规则过滤-【权重规则】-end: 放行");
         return next().logic(userId, strategyId);
     }

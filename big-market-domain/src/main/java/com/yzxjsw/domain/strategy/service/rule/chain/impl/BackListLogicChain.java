@@ -29,9 +29,9 @@ public class BackListLogicChain extends AbstractLogicChain {
 
         // 拆分出规则值 [奖品ID:用户列表,]
         String[] split = ruleValue.split(Constants.COLON);
-        int awardId = Integer.parseInt(split[0]);
+        int awardId = Integer.parseInt(split[0]); // 抽奖策略中黑名单配置的奖品ID
 
-        // 拆分出用户列表
+        // 拆分出用户列表[user1, user2, user3]
         String[] userBlackIds = split[1].split(Constants.SPLIT);
         for (String userBlackId : userBlackIds) {
             if (userId.equals(userBlackId)) {

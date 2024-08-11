@@ -46,6 +46,13 @@ public interface IStrategyRepository {
     StrategyRuleEntity queryStrategyRule(Long strategyId, String ruleModel);
 
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
+
+    /**
+     * 通过策略ID 和 策略模型可以唯一确定策略模型配置的规则值
+     * @param strategyId 策略ID
+     * @param ruleModel 策略模型
+     * @return 配置的规则值
+     */
     String queryStrategyRuleValue(Long strategyId, String ruleModel);
 
     StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId);

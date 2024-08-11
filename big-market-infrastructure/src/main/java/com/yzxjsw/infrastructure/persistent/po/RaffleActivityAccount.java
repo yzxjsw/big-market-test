@@ -1,6 +1,9 @@
 package com.yzxjsw.infrastructure.persistent.po;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -11,6 +14,9 @@ import java.util.Date;
  * @version 2024/07/19 15:06
  **/
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RaffleActivityAccount {
 
     /**

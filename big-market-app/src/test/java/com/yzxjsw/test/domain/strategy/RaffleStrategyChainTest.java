@@ -43,10 +43,8 @@ public class RaffleStrategyChainTest {
 
     @Test
     public void test_strategyArmory() {
-        // 100004 测试抽奖前置规则
+        // 100004 测试抽奖前处理
         boolean success = strategyArmory.assembleLotteryStrategy(100004L);
-        // 100005 测试抽奖中规则 【rule_lock】
-        //boolean success = strategyArmory.assembleLotteryStrategy(100005L);
         log.info("装配测试结果：{}", success);
     }
 
