@@ -1,6 +1,6 @@
-package com.yzxjsw.domain.strategy.service.rule.filter1;
+package com.yzxjsw.domain.strategy.service.rule.filter;
 
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 
 /**
  * IFilterNode 抽奖后过滤结点

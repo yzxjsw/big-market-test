@@ -29,6 +29,11 @@ public class StrategyArmoryDispatch implements IStrategyArmory, IStrategyDispatc
     @Resource
     private IStrategyRepository strategyRepository;
 
+    @Override
+    public boolean assembleLotteryStrategyByActivityId(Long activityId) {
+        Long strategyId = strategyRepository.queryStrategyIdByActivityId(activityId);
+        return assembleLotteryStrategy(strategyId);
+    }
     /**
      *
      * @param strategyId 策略ID
@@ -73,6 +78,8 @@ public class StrategyArmoryDispatch implements IStrategyArmory, IStrategyDispatc
         }
         return true;
     }
+
+
 
     /**
      * 装配抽奖策略中奖品的库存

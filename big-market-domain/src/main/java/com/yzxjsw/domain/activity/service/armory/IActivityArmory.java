@@ -9,9 +9,16 @@ package com.yzxjsw.domain.activity.service.armory;
 public interface IActivityArmory {
 
     /**
-     *
+     * 装配具体的一个sku
      * @param sku 编号
      * @return 是否装配成功
      */
     boolean assembleActivitySku(Long sku);
+
+    /**
+     * 将这个活动上配置的sku都进行装配
+     * @param activityId 活动id
+     * @return 是否装配成功
+     */
+    boolean assembleActivitySkuByActivityId(Long activityId);
 }

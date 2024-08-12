@@ -1,17 +1,15 @@
-package com.yzxjsw.domain.activity.model.entity;
+package com.yzxjsw.trigger.api.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 /**
- * PartakeRaffleActivityEntity
+ * ActivityDrawRequestDTO 活动抽奖请求的DTO（data transfer object）
  *
  * @author yezhenxiong
- * @version 2024/08/09 21:35
+ * @version 2024/08/11 13:56
  **/
 @Data
-@Builder
-public class PartakeRaffleActivityEntity {
+public class ActivityDrawRequestDTO {
 
     /**
      * 用户ID
@@ -24,3 +22,4 @@ public class PartakeRaffleActivityEntity {
     private Long activityId;
 
 }
+

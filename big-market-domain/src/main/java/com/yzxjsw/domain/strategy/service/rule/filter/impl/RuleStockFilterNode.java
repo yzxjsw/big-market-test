@@ -1,11 +1,11 @@
-package com.yzxjsw.domain.strategy.service.rule.filter1.impl;
+package com.yzxjsw.domain.strategy.service.rule.filter.impl;
 
 import com.yzxjsw.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import com.yzxjsw.domain.strategy.model.valobj.StrategyAwardStockKeyVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyDispatch;
-import com.yzxjsw.domain.strategy.service.rule.filter1.IFilterNode;
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.IFilterNode;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @version 2024/08/01 15:54
  **/
 @Slf4j
-@Component("rule_stock")
+@Component("stock")
 public class RuleStockFilterNode implements IFilterNode {
     @Resource
     private IStrategyDispatch strategyDispatch;
@@ -28,7 +28,7 @@ public class RuleStockFilterNode implements IFilterNode {
 
     @Override
     public DefaultFilterFactory.ActionEntity logic(String userId, Long strategyId, Integer awardId, String ruleValue) {
-        log.info("规则过滤-库存扣减 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
+        log.info("【抽奖后规则过滤】-库存扣减 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
         // 扣减库存
         Boolean status = strategyDispatch.subtractionAwardStock(strategyId, awardId);
         // true；库存扣减成功，TAKE_OVER 规则节点接管，返回奖品ID，奖品规则配置

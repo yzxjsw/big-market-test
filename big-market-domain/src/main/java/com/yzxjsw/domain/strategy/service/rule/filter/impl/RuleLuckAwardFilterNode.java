@@ -1,9 +1,9 @@
-package com.yzxjsw.domain.strategy.service.rule.filter1.impl;
+package com.yzxjsw.domain.strategy.service.rule.filter.impl;
 
 import com.yzxjsw.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
-import com.yzxjsw.domain.strategy.service.rule.filter1.IFilterNode;
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.IFilterNode;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 import com.yzxjsw.types.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @version 2024/08/01 15:52
  **/
 @Slf4j
-@Component("rule_luck")
+@Component("luck")
 public class RuleLuckAwardFilterNode implements IFilterNode {
 
     @Resource
@@ -25,7 +25,7 @@ public class RuleLuckAwardFilterNode implements IFilterNode {
 
     @Override
     public DefaultFilterFactory.ActionEntity logic(String userId, Long strategyId, Integer awardId, String ruleModel) {
-        log.info("规则过滤-兜底奖品 userId:{} strategyId:{} awardId:{} ruleValue:{}", userId, strategyId, awardId, ruleModel);
+        log.info("【抽奖后规则过滤】-兜底奖品 userId:{} strategyId:{} awardId:{} ruleValue:{}", userId, strategyId, awardId, ruleModel);
         String ruleValue = strategyRepository.queryStrategyRuleValue(strategyId, awardId, ruleModel);
         String[] split = ruleValue.split(Constants.COLON);
         if (split.length == 0) {

@@ -19,4 +19,11 @@ public interface IRaffleActivityPartakeService {
      */
     UserRaffleOrderEntity createOrder(PartakeRaffleActivityEntity partakeRaffleActivityEntity);
 
+    /**
+     *
+     * @param userId 用户id
+     * @param activityId 活动id
+     * @return
+     */
+    UserRaffleOrderEntity createOrder(String userId, Long activityId);
 }

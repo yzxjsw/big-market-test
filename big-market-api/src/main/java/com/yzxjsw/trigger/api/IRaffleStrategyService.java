@@ -2,8 +2,8 @@ package com.yzxjsw.trigger.api;
 
 import com.yzxjsw.trigger.api.dto.RaffleAwardListRequestDTO;
 import com.yzxjsw.trigger.api.dto.RaffleAwardListResponseDTO;
-import com.yzxjsw.trigger.api.dto.RaffleRequestDTO;
-import com.yzxjsw.trigger.api.dto.RaffleResponseDTO;
+import com.yzxjsw.trigger.api.dto.RaffleStrategyRequestDTO;
+import com.yzxjsw.trigger.api.dto.RaffleStrategyResponseDTO;
 import com.yzxjsw.types.model.Response;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author yezhenxiong
  * @version 2024/07/15 14:36
  **/
-public interface IRaffleService {
+public interface IRaffleStrategyService {
     /**
      * 抽奖策略装配接口
      * @param strategyId 抽奖策略ID
@@ -34,7 +34,7 @@ public interface IRaffleService {
      * @param requestDTO 请求参数
      * @return 抽奖结果
      */
-    Response<RaffleResponseDTO> randomRaffle(RaffleRequestDTO requestDTO);
+    Response<RaffleStrategyResponseDTO> randomRaffle(RaffleStrategyRequestDTO requestDTO);
 
 
 }

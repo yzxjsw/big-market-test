@@ -9,7 +9,7 @@ import lombok.Data;
  * @version 2024/07/15 14:44
  **/
 @Data
-public class RaffleRequestDTO {
+public class RaffleStrategyRequestDTO {
 
     // 抽奖策略ID
     private Long strategyId;

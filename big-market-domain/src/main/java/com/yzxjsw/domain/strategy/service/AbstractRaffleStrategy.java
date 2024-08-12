@@ -6,7 +6,7 @@ import com.yzxjsw.domain.strategy.model.StrategyAwardEntity;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyDispatch;
 import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 import com.yzxjsw.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
 import com.yzxjsw.types.enums.ResponseCode;
 import com.yzxjsw.types.exception.AppException;
@@ -73,6 +73,7 @@ public abstract class AbstractRaffleStrategy implements IRaffleStrategy{
         StrategyAwardEntity strategyAward = repository.queryStrategyAwardEntity(strategyId, awardId);
         return RaffleAwardEntity.builder()
                 .awardId(awardId)
+                .awardTitle(strategyAward.getAwardTitle())
                 .awardConfig(awardConfig)
                 .sort(strategyAward.getSort())
                 .build();

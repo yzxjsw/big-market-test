@@ -1,9 +1,9 @@
-package com.yzxjsw.domain.strategy.service.rule.filter1.impl;
+package com.yzxjsw.domain.strategy.service.rule.filter.impl;
 
 import com.yzxjsw.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
 import com.yzxjsw.domain.strategy.repository.IStrategyRepository;
-import com.yzxjsw.domain.strategy.service.rule.filter1.IFilterNode;
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.IFilterNode;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -16,16 +16,14 @@ import javax.annotation.Resource;
  * @version 2024/08/01 15:49
  **/
 @Slf4j
-@Component("rule_lock")
+@Component("lock")
 public class RuleLockFilterNode implements IFilterNode {
-    // 模拟用户的抽奖次数
-    private Long userRaffleCount = 10L;
 
     @Resource
     private IStrategyRepository strategyRepository;
     @Override
     public DefaultFilterFactory.ActionEntity logic(String userId, Long strategyId, Integer awardId, String ruleModel) {
-        log.info("抽奖后规则过滤-次数锁 userId:{} strategyId:{} awardId:{}",
+        log.info("【抽奖后规则过滤】-次数锁 userId:{} strategyId:{} awardId:{}",
                 userId, strategyId, awardId);
         String ruleValue = strategyRepository.queryStrategyRuleValue(strategyId, awardId, ruleModel);
         // 解锁需要的次数
@@ -35,9 +33,11 @@ public class RuleLockFilterNode implements IFilterNode {
         } catch (Exception e) {
             throw new RuntimeException("规则过滤-次数锁异常 ruleValue: " + ruleValue + " 配置不正确");
         }
+
+        // 查询用户抽奖次数 - 当天的；策略ID:活动ID 1:1 的配置，可以直接用 strategyId 查询。
+        Integer userRaffleCount = strategyRepository.queryTodayUserRaffleCount(userId, strategyId);
         // 解锁，放行
         if (userRaffleCount >= raffleCount) {
-            log.info("奖品可解锁，放行，将由下一结点进行处理");
             return DefaultFilterFactory.ActionEntity.builder()
                     .ruleLogicCheckType(RuleLogicCheckTypeVO.ALLOW)
                     .build();

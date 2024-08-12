@@ -12,11 +12,12 @@ import com.yzxjsw.domain.strategy.service.IRaffleStock;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyDispatch;
 import com.yzxjsw.domain.strategy.service.rule.chain.ILogicChain;
 import com.yzxjsw.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
-import com.yzxjsw.domain.strategy.service.rule.filter1.IFilterNode;
-import com.yzxjsw.domain.strategy.service.rule.filter1.factory.DefaultFilterFactory;
+import com.yzxjsw.domain.strategy.service.rule.filter.IFilterNode;
+import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultFilterFactory;
 import com.yzxjsw.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
 import com.yzxjsw.domain.strategy.service.rule.tree.factory.engine.IDecisionTreeEngine;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,37 +64,30 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy implements IRa
         String[] ruleValues = null;
         StrategyAwardRuleModelVO strategyAwardRuleModelVO = repository.queryStrategyAwardRuleModel(strategyId, awardId);
         DefaultFilterFactory.ActionEntity actionEntity = null;
-        IFilterNode ruleLock = defaultFilterFactory.getFilterNode("rule_lock");
-        IFilterNode ruleLuck = defaultFilterFactory.getFilterNode("rule_luck");
-        IFilterNode ruleStock = defaultFilterFactory.getFilterNode("rule_stock");
-        if (null == strategyAwardRuleModelVO.getRuleModels()) {
-            // 没有配置，走库存，不足就走兜底
-            actionEntity = ruleStock.logic(userId, strategyId, awardId, "rule_stock");
-            // 如果放行，走兜底
-            if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.ALLOW)) {
-                actionEntity = ruleLuck.logic(userId, strategyId, awardId, "rule_luck");
-            }
-            return actionEntity.getStrategyAwardVO();
-        }
-        // 次数锁
-        ruleValues = strategyAwardRuleModelVO.raffleRuleModelList();
-        for (String ruleValue : ruleValues) {
-            if ("rule_lock".equals(ruleValue)) {
-                actionEntity = ruleLock.logic(userId, strategyId, awardId, "rule_lock");
-                if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.ALLOW)) {
-                    // 走库存，不足就走兜底
-                    actionEntity = ruleStock.logic(userId, strategyId, awardId, "rule_stock");
-                    // 如果放行，走兜底
-                    if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.ALLOW)) {
-                        actionEntity = ruleLuck.logic(userId, strategyId, awardId, "rule_luck");
-                    }
-                } else if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.TAKE_OVER)) {
-                    actionEntity = ruleLuck.logic(userId, strategyId, awardId, "rule_luck");
-                }
+        IFilterNode ruleLock = defaultFilterFactory.getFilterNode("lock");
+        IFilterNode ruleLuck = defaultFilterFactory.getFilterNode("luck");
+        IFilterNode ruleStock = defaultFilterFactory.getFilterNode("stock");
+
+        String ruleValue = strategyAwardRuleModelVO.getRuleModels();
+        // 如果配置了次数锁
+        if ("lock".equals(ruleValue)) {
+            actionEntity = ruleLock.logic(userId, strategyId, awardId, "lock");
+            // 拦截，未达到解锁条件
+            if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.TAKE_OVER)) {
+                actionEntity = ruleLuck.logic(userId, strategyId, awardId, "luck");
+                return actionEntity.getStrategyAwardVO();
             }
         }
-        assert actionEntity != null;
+        // 1. 奖品达到解锁条件
+        // 2. 没有配置，
+        // 走库存，不足就走兜底
+        actionEntity = ruleStock.logic(userId, strategyId, awardId, "stock");
+        // 如果放行，走兜底
+        if (actionEntity.getRuleLogicCheckType().equals(RuleLogicCheckTypeVO.ALLOW)) {
+            actionEntity = ruleLuck.logic(userId, strategyId, awardId, "luck");
+        }
         return actionEntity.getStrategyAwardVO();
+
     }
 
     @Override

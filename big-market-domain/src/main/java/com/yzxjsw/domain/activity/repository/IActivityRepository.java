@@ -6,6 +6,7 @@ import com.yzxjsw.domain.activity.model.entity.*;
 import com.yzxjsw.domain.activity.model.valobj.ActivitySkuStockKeyVO;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * IActivityRepository 抽奖活动仓储接口
@@ -73,4 +74,5 @@ public interface IActivityRepository {
 
     ActivityAccountDayEntity queryActivityAccountDayByUserId(String userId, Long activityId, String day);
 
+    List<ActivitySkuEntity> queryActivitySkuListByActivityId(Long activityId);
 }

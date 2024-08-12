@@ -1,15 +1,12 @@
 package com.yzxjsw.domain.strategy.model.valobj;
 
-import com.yzxjsw.domain.strategy.service.rule.filter.factory.DefaultLogicFactory;
 import com.yzxjsw.types.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * StrategyAwardRuleModelVO
