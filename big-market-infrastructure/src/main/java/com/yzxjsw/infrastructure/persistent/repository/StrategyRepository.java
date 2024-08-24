@@ -46,6 +46,8 @@ public class StrategyRepository implements IStrategyRepository {
 
     @Resource
     private IRaffleActivityDao raffleActivityDao;
+    @Resource
+    private IRaffleActivityAccountDao raffleActivityAccountDao;
 
     @Resource
     private IRedisService redisService;
@@ -337,5 +339,16 @@ public class StrategyRepository implements IStrategyRepository {
         }
         // 总次数 - 剩余的，等于今日参与的
         return raffleActivityAccountDay.getDayCount() - raffleActivityAccountDay.getDayCountSurplus();
+    }
+
+    @Override
+    public Integer queryActivityAccountTotalUseCount(String userId, Long strategyId) {
+        Long activityId = raffleActivityDao.queryActivityIdByStrategyId(strategyId);
+        RaffleActivityAccount raffleActivityAccount = raffleActivityAccountDao.queryActivityAccountByUserId(RaffleActivityAccount.builder()
+                .userId(userId)
+                .activityId(activityId)
+                .build());
+        // 返回计算使用量
+        return raffleActivityAccount.getTotalCount() - raffleActivityAccount.getTotalCountSurplus();
     }
 }

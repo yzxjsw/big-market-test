@@ -6,8 +6,6 @@ import com.yzxjsw.domain.strategy.model.RaffleFactorEntity;
 import com.yzxjsw.domain.strategy.service.IRaffleStrategy;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyArmory;
 import com.yzxjsw.domain.strategy.service.rule.chain.impl.RuleWeightLogicChain;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleWeightLogicFilter;
 import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleLockFilterNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

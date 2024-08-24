@@ -29,7 +29,7 @@ public class RuleWeightLogicChain extends AbstractLogicChain {
 
 
     // 根据用户ID查询用户抽奖消耗的积分值，本章节我们先写死为固定的值。后续需要从数据库中查询。
-    public Long userScore = 1000L;
+    //public Long userScore = 1000L;
 
     @Override
     public DefaultChainFactory.StrategyAwardVO logic(String userId, Long strategyId) {
@@ -47,6 +47,8 @@ public class RuleWeightLogicChain extends AbstractLogicChain {
         List<Long> analyticalSortedKeys = new ArrayList<>(analyticalValueGroup.keySet());
         Collections.sort(analyticalSortedKeys);
 
+        // 活动账户总的次数
+        Integer userScore = repository.queryActivityAccountTotalUseCount(userId, strategyId);
         // 寻找第一个小于等于用户消耗积分值的第一个积分范围
         Long nextValue = null;
         for (Long analyticalSortedKeyValue : analyticalSortedKeys) {

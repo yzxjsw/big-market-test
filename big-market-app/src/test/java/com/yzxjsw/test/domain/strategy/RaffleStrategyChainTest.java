@@ -6,8 +6,7 @@ import com.yzxjsw.domain.strategy.model.RaffleFactorEntity;
 import com.yzxjsw.domain.strategy.service.IRaffleStrategy;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyArmory;
 import com.yzxjsw.domain.strategy.service.rule.chain.impl.RuleWeightLogicChain;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleWeightLogicFilter;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,11 +34,11 @@ public class RaffleStrategyChainTest {
 
     @Resource
     private RuleWeightLogicChain ruleWeightLogicChain;
-    @Resource
-    private RuleWeightLogicFilter ruleWeightLogicFilter;
-
-    @Resource
-    private RuleLockLogicFilter ruleLockLogicFilter;
+    //@Resource
+    //private RuleWeightLogicFilter ruleWeightLogicFilter;
+    //
+    //@Resource
+    //private RuleLockLogicFilter ruleLockLogicFilter;
 
     @Test
     public void test_strategyArmory() {
@@ -75,23 +74,23 @@ public class RaffleStrategyChainTest {
         log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
     }
 
-    @Test
-    public void test_performRaffle_center() {
-        // 100005 测试抽奖中规则 【rule_lock】
-        boolean success = strategyArmory.assembleLotteryStrategy(100005L);
-        log.info("装配测试结果：{}", success);
-        ReflectionTestUtils.setField(ruleWeightLogicChain, "userScore", 5000L);
-        ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 0L);
-        RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
-                .userId("yzx")  // 黑名单用户 user1,user2,user3
-                .strategyId(100005L)
-                .build();
-
-        RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
-
-        log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
-        log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
-    }
+    //@Test
+    //public void test_performRaffle_center() {
+    //    // 100005 测试抽奖中规则 【rule_lock】
+    //    boolean success = strategyArmory.assembleLotteryStrategy(100005L);
+    //    log.info("装配测试结果：{}", success);
+    //    ReflectionTestUtils.setField(ruleWeightLogicChain, "userScore", 5000L);
+    //    ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 0L);
+    //    RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
+    //            .userId("yzx")  // 黑名单用户 user1,user2,user3
+    //            .strategyId(100005L)
+    //            .build();
+    //
+    //    RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
+    //
+    //    log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
+    //    log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
+    //}
 
     @Test
     public void test_performRaffle_tree() {

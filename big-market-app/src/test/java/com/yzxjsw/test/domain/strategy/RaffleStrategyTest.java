@@ -5,8 +5,8 @@ import com.yzxjsw.domain.strategy.model.RaffleAwardEntity;
 import com.yzxjsw.domain.strategy.model.RaffleFactorEntity;
 import com.yzxjsw.domain.strategy.service.IRaffleStrategy;
 import com.yzxjsw.domain.strategy.service.armory.IStrategyArmory;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
-import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleWeightLogicFilter;
+//import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
+//import com.yzxjsw.domain.strategy.service.rule.filter.impl.RuleWeightLogicFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.junit.Test;
@@ -33,11 +33,11 @@ public class RaffleStrategyTest {
     @Resource
     private IRaffleStrategy raffleStrategy;
 
-    @Resource
-    private RuleWeightLogicFilter ruleWeightLogicFilter;
-
-    @Resource
-    private RuleLockLogicFilter ruleLockLogicFilter;
+    //@Resource
+    //private RuleWeightLogicFilter ruleWeightLogicFilter;
+    //
+    //@Resource
+    //private RuleLockLogicFilter ruleLockLogicFilter;
 
     //@Before
     //public void setUp() {
@@ -83,8 +83,8 @@ public class RaffleStrategyTest {
     }
     @Test
     public void test_performRaffle_center() {
-        ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 5000L);
-        ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 0L);
+        //ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 5000L);
+        //ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 0L);
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
                 .userId("yzx")  // 黑名单用户 user1,user2,user3
                 .strategyId(100005L)

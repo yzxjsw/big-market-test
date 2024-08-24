@@ -45,7 +45,7 @@ public abstract class AbstractRaffleActivityAccountQuota extends RaffleActivityA
         // 2.3 查询次数信息（用户在活动上可参与的次数）
         ActivityCountEntity activityCountEntity = queryRaffleActivityCountByActivityCountId(activitySkuEntity.getActivityCountId());
 
-        // 3. 活动的规则校验 #TODO
+        // 3. 活动的规则校验
         IActionChain actionChain = defaultActivityChainFactory.openActionChain();
         actionChain.action(activitySkuEntity, activityEntity, activityCountEntity);
 
